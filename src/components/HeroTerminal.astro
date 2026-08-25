@@ -1,0 +1,65 @@
+---
+---
+
+<div class="w-full rounded-xl cyber-terminal overflow-hidden border border-cyber-border group hover:border-cyber-cyan/40 transition-all duration-300">
+  <!-- Top Bar -->
+  <div class="h-9 px-4 bg-cyber-surface2 border-b border-cyber-border flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+    </div>
+    <div class="text-xs font-mono text-cyber-muted flex items-center gap-1">
+      <svg class="w-3.5 h-3.5 text-cyber-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3" />
+      </svg>
+      <span>huaian@cyber-core:~</span>
+    </div>
+    <div class="text-[10px] font-mono text-cyber-muted/60 uppercase">
+      zsh - 80x24
+    </div>
+  </div>
+
+  <!-- Terminal Body -->
+  <div class="p-5 font-mono text-xs sm:text-sm space-y-3.5 text-slate-300">
+    <div>
+      <div class="flex items-center gap-2 text-cyber-cyan">
+        <span>$</span>
+        <span class="text-white">whoami</span>
+      </div>
+      <p class="text-cyber-muted mt-1 pl-4">
+        &gt; 谢怀安 (Xie Huaian) · AI Agent 架构师 / 全栈工程师 / 独立开发者
+      </p>
+    </div>
+
+    <div>
+      <div class="flex items-center gap-2 text-cyber-cyan">
+        <span>$</span>
+        <span class="text-white">cat stack.config</span>
+      </div>
+      <div class="mt-1 pl-4 text-xs space-y-1 text-slate-400">
+        <div><span class="text-cyber-purple">AI &amp; Multi-Agent:</span> [ LangGraph, 7-Role Digital Team, RAG, ChromaDB ]</div>
+        <div><span class="text-cyber-neonCyan">Full-Stack:</span>        [ Astro 5, React, FastAPI, Python, TypeScript, Tailwind ]</div>
+        <div><span class="text-cyber-green">Infra &amp; Cloud:</span>       [ Cloudflare Pages/Workers, Docker, WebSocket, SSE ]</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex items-center gap-2 text-cyber-cyan">
+        <span>$</span>
+        <span class="text-white">echo $CURRENT_STATUS</span>
+      </div>
+      <p class="text-cyber-green mt-1 pl-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyber-green inline-block animate-ping"></span>
+        <span>"Online on xiehuaian.de5.net &amp; ready to collaborate."</span>
+      </p>
+    </div>
+
+    <!-- Active Prompt Line -->
+    <div class="pt-2 flex items-center gap-2 text-cyber-cyan">
+      <span>$</span>
+      <span class="text-slate-400">gh repo view xiehuaian77-sketch</span>
+      <span class="inline-block w-2.5 h-4 bg-cyber-cyan animate-blink"></span>
+    </div>
+  </div>
+</div>

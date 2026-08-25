@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#141926"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#cloudGrad)"/>
+  <!-- Chart UI simulation -->
+  <rect x="120" y="80" width="560" height="260" rx="8" fill="#090a0f" stroke="#1f273d" stroke-width="2"/>
+  <!-- Bars and lines -->
+  <rect x="160" y="240" width="40" height="70" fill="#1e293b"/>
+  <rect x="220" y="190" width="40" height="120" fill="#00f0ff" opacity="0.8"/>
+  <rect x="280" y="210" width="40" height="100" fill="#1e293b"/>
+  <rect x="340" y="150" width="40" height="160" fill="#a855f7" opacity="0.8"/>
+  <rect x="400" y="170" width="40" height="140" fill="#1e293b"/>
+  <rect x="460" y="120" width="40" height="190" fill="#00f0ff"/>
+  <rect x="520" y="140" width="40" height="170" fill="#38bdf8" opacity="0.8"/>
+  <rect x="580" y="100" width="40" height="210" fill="#10b981"/>
+  <!-- Line chart overlay -->
+  <polyline points="180,220 240,170 300,190 360,130 420,150 480,100 540,120 600,85" fill="none" stroke="#00f0ff" stroke-width="3"/>
+  <text x="400" y="390" fill="#f1f5f9" font-family="'Space Grotesk', sans-serif" font-weight="bold" font-size="22" text-anchor="middle" letter-spacing="3">CLOUD REAL-TIME MONITORING SAAS</text>
+  <text x="400" y="420" fill="#10b981" font-family="monospace" font-size="14" text-anchor="middle">99.99% UPTIME · REALTIME METRICS</text>
+</svg>

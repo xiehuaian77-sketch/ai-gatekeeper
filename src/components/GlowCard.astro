@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+  glowColor?: 'cyan' | 'purple' | 'green';
+  as?: string;
+  href?: string;
+}
+
+const { class: className = '', glowColor = 'cyan', as = 'div', href } = Astro.props;
+
+const glowClasses = {
+  cyan: 'hover:border-cyber-cyan/50 hover:shadow-[0_0_30px_-5px_rgba(0,240,255,0.2)]',
+  purple: 'hover:border-cyber-purple/50 hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.2)]',
+  green: 'hover:border-cyber-green/50 hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.2)]',
+};
+
+const Tag = href ? 'a' : as;
+---
+
+<Tag
+  href={href}
+  class={`relative group block rounded-xl bg-cyber-surface/80 backdrop-blur-md border border-cyber-border transition-all duration-300 ${glowClasses[glowColor]} ${className}`}
+>
+  <slot />
+</Tag>

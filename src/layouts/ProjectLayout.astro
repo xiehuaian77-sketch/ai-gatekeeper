@@ -1,0 +1,122 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'portfolio'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.heroImage}
+>
+  <article class="max-w-4xl mx-auto space-y-8">
+    <!-- Back to Portfolio Link -->
+    <div>
+      <a
+        href="/portfolio"
+        class="inline-flex items-center gap-1.5 text-xs font-mono text-cyber-muted hover:text-cyber-cyan transition-colors"
+      >
+        <span>&larr;</span>
+        <span>返回作品集列表 (Portfolio)</span>
+      </a>
+    </div>
+
+    <!-- Project Header -->
+    <header class="space-y-4 pb-6 border-b border-cyber-border">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="px-2.5 py-0.5 rounded-full font-mono text-xs bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan">
+          {data.category}
+        </span>
+        <FormattedDate date={data.pubDate} />
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+        {data.title}
+      </h1>
+
+      <p class="text-base sm:text-lg text-cyber-muted leading-relaxed">
+        {data.description}
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        {data.liveUrl && (
+          <a
+            href={data.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-cyber-cyan text-cyber-bg hover:bg-cyber-neonCyan transition-all shadow-[0_0_15px_rgba(0,240,255,0.35)]"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+            <span>在线体验 Demo</span>
+          </a>
+        )}
+
+        {data.githubUrl && (
+          <a
+            href={data.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono text-slate-200 bg-cyber-surface2 border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan transition-colors"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            <span>查看源代码</span>
+          </a>
+        )}
+      </div>
+    </header>
+
+    <!-- Project Hero Image -->
+    {data.heroImage && (
+      <div class="rounded-xl overflow-hidden border border-cyber-border bg-cyber-surface shadow-2xl">
+        <img
+          src={data.heroImage}
+          alt={data.title}
+          class="w-full h-auto object-cover max-h-[480px]"
+        />
+      </div>
+    )}
+
+    <!-- Tech Tags Bar -->
+    <div class="p-4 rounded-xl cyber-glass border border-cyber-border flex flex-wrap items-center gap-2">
+      <span class="text-xs font-mono text-cyber-muted mr-2">// 技术栈:</span>
+      {data.tags.map((tag) => (
+        <span class="px-2.5 py-1 rounded text-xs font-mono bg-cyber-surface2 border border-cyber-border text-cyber-cyan">
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <!-- Project Article Body -->
+    <div class="prose prose-invert max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-a:text-cyber-cyan prose-pre:bg-cyber-surface prose-pre:border prose-pre:border-cyber-border py-4">
+      <slot />
+    </div>
+
+    <!-- Footer Navigation -->
+    <footer class="pt-8 border-t border-cyber-border flex items-center justify-between">
+      <a
+        href="/portfolio"
+        class="text-xs font-mono text-cyber-muted hover:text-cyber-cyan transition-colors"
+      >
+        &larr; 返回作品集
+      </a>
+      <a
+        href="/contact"
+        class="text-xs font-mono text-cyber-cyan hover:underline"
+      >
+        预约项目定制咨询 &rarr;
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

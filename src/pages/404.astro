@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 - 页面未找到 | Alex.dev"
+  description="请求的数字路径不存在或已被移动。"
+>
+  <div class="min-h-[60vh] flex items-center justify-center py-12">
+    <div class="max-w-md w-full text-center space-y-6">
+      <!-- Glitch 404 text -->
+      <div class="relative inline-block">
+        <h1 class="text-7xl sm:text-8xl font-mono font-bold text-cyber-cyan tracking-widest animate-pulse">
+          404
+        </h1>
+        <div class="absolute -inset-1 bg-cyber-cyan/10 blur-xl -z-10"></div>
+      </div>
+
+      <div class="p-4 rounded-xl cyber-terminal border border-cyber-border text-left font-mono text-xs space-y-1.5 text-slate-300">
+        <div class="text-red-400">ERROR: [HTTP_404_NOT_FOUND]</div>
+        <div class="text-cyber-muted">&gt; The requested path could not be resolved in the digital matrix.</div>
+        <div class="text-cyber-cyan">&gt; Status: Kernel panic diverted. Returning to safe harbor...</div>
+      </div>
+
+      <div class="pt-4 flex items-center justify-center gap-4">
+        <a
+          href="/"
+          class="px-5 py-2.5 rounded-lg text-xs font-mono font-semibold bg-cyber-cyan text-cyber-bg hover:bg-cyber-neonCyan transition-all shadow-[0_0_15px_rgba(0,240,255,0.35)]"
+        >
+          &larr; 返回主控中心 (HOME)
+        </a>
+        <a
+          href="/blog"
+          class="px-5 py-2.5 rounded-lg text-xs font-mono text-slate-300 bg-cyber-surface2 border border-cyber-border hover:border-cyber-cyan transition-colors"
+        >
+          查看技术文章
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

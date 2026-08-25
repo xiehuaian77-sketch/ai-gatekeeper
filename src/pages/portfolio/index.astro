@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getAllProjects } from '../../utils/content';
+
+const projects = await getAllProjects();
+
+const categories = ['全部', ...Array.from(new Set(projects.map(p => p.data.category)))];
+---
+
+<BaseLayout
+  title="作品集 - Alex.dev"
+  description="精选项目展示：涵盖 AI 智能体开发、云原生全栈系统、高性能数据可视化及开源自动化工具。"
+>
+  <div class="space-y-10">
+    <!-- Header -->
+    <header class="space-y-3">
+      <div class="text-xs font-mono text-cyber-cyan tracking-widest uppercase">// SELECTED WORK</div>
+      <h1 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+        作品集 (Portfolio)
+      </h1>
+      <p class="text-base text-cyber-muted max-w-2xl">
+        这里收录了我在全栈开发、AI 智能体探索与开源工具领域的代表性实践项目。每个项目均包含设计初衷、技术选型与实现细节。
+      </p>
+    </header>
+
+    <!-- Category Filter Bar -->
+    <div class="flex flex-wrap items-center gap-2 pt-2 border-b border-cyber-border/80 pb-4">
+      {categories.map((cat, idx) => (
+        <button
+          type="button"
+          class={`filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all ${
+            idx === 0
+              ? 'bg-cyber-cyan text-cyber-bg font-semibold shadow-[0_0_12px_rgba(0,240,255,0.3)]'
+              : 'bg-cyber-surface2 text-cyber-muted hover:text-white border border-cyber-border'
+          }`}
+          data-category={cat}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Project Cards Grid -->
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <div class="project-item" data-category={project.data.category}>
+          <ProjectCard project={project} />
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectItems = document.querySelectorAll('.project-item');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      // Update button active state
+      filterButtons.forEach((btn) => {
+        btn.classList.remove('bg-cyber-cyan', 'text-cyber-bg', 'font-semibold', 'shadow-[0_0_12px_rgba(0,240,255,0.3)]');
+        btn.classList.add('bg-cyber-surface2', 'text-cyber-muted', 'border', 'border-cyber-border');
+      });
+      button.classList.add('bg-cyber-cyan', 'text-cyber-bg', 'font-semibold', 'shadow-[0_0_12px_rgba(0,240,255,0.3)]');
+      button.classList.remove('bg-cyber-surface2', 'text-cyber-muted', 'border', 'border-cyber-border');
+
+      const targetCategory = button.getAttribute('data-category');
+
+      // Filter projects
+      projectItems.forEach((item) => {
+        const itemCategory = item.getAttribute('data-category');
+        if (targetCategory === '全部' || itemCategory === targetCategory) {
+          (item as HTMLElement).style.display = 'block';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

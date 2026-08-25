@@ -1,0 +1,67 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogCard from '../../../components/BlogCard.astro';
+import { getPublishedBlogPosts } from '../../../utils/content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const tags = new Set<string>();
+
+  posts.forEach((post) => {
+    post.data.tags.forEach((tag) => tags.add(tag));
+  });
+
+  return Array.from(tags).map((tag) => {
+    const filteredPosts = posts
+      .filter((post) => post.data.tags.includes(tag))
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+    return {
+      params: { tag },
+      props: { posts: filteredPosts, tag },
+    };
+  });
+}
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  tag: string;
+}
+
+const { posts, tag } = Astro.props;
+---
+
+<BaseLayout
+  title={`标签: #${tag} - Alex.dev`}
+  description={`包含 #${tag} 标签的所有技术文章与随笔归档。`}
+>
+  <div class="space-y-8">
+    <!-- Breadcrumb & Tag Title -->
+    <div>
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-1.5 text-xs font-mono text-cyber-muted hover:text-cyber-cyan transition-colors mb-4"
+      >
+        <span>&larr;</span>
+        <span>返回全部博客</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-mono text-cyber-cyan tracking-widest uppercase">// TAG ARCHIVE</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight mt-1">
+        标签: <span class="text-cyber-cyan">#{tag}</span>
+      </h1>
+      <p class="text-sm font-mono text-cyber-muted mt-2">
+        共找到 {posts.length} 篇相关文章
+      </p>
+    </div>
+
+    <!-- Posts Stream -->
+    <div class="grid grid-cols-1 gap-5 pt-4">
+      {posts.map((post) => (
+        <BlogCard post={post} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

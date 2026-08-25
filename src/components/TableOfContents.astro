@@ -1,0 +1,37 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <nav class="p-4 rounded-xl cyber-glass border border-cyber-border space-y-3">
+    <div class="flex items-center gap-2 text-xs font-mono font-bold text-white uppercase tracking-wider">
+      <svg class="w-4 h-4 text-cyber-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+      </svg>
+      <span>// 文章目录 (TOC)</span>
+    </div>
+    <ul class="space-y-1.5 text-xs font-mono">
+      {filteredHeadings.map((heading) => (
+        <li class={heading.depth === 3 ? 'pl-3' : ''}>
+          <a
+            href={`#${heading.slug}`}
+            class="text-cyber-muted hover:text-cyber-cyan transition-colors block py-0.5 truncate"
+          >
+            <span class="text-cyber-cyan/60">{heading.depth === 2 ? '#' : '##'}</span> {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}

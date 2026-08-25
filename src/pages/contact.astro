@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GlowCard from '../components/GlowCard.astro';
+
+const socialLinks = [
+  {
+    name: 'GitHub',
+    handle: '@xiehuaian77-sketch',
+    url: 'https://github.com/xiehuaian77-sketch',
+    icon: '🐙',
+    desc: '查看我的开源 AI 智能体与代码仓库',
+  },
+  {
+    name: '电子邮箱 (Email)',
+    handle: 'xiehuaian77@gmail.com',
+    url: 'mailto:xiehuaian77@gmail.com',
+    icon: '✉️',
+    desc: '项目合作、技术顾问与商务沟通首选',
+  },
+  {
+    name: '个人站点 (Domain)',
+    handle: 'xiehuaian.de5.net',
+    url: 'https://xiehuaian.de5.net',
+    icon: '🌐',
+    desc: '官方个人数字空间与技术博客',
+  },
+  {
+    name: '微信 / 即刻社区',
+    handle: 'Xie Huaian',
+    url: 'https://github.com/xiehuaian77-sketch',
+    icon: '💬',
+    desc: '开发者社区互动与技术讨论',
+  },
+];
+---
+
+<BaseLayout
+  title="联系方式 - 谢怀安 (Huaian.dev)"
+  description="与 AI 智能体架构师谢怀安取得联系，探讨项目合作、技术方案或交流想法。"
+>
+  <div class="max-w-4xl mx-auto space-y-12">
+    <!-- Header -->
+    <header class="space-y-3">
+      <div class="text-xs font-mono text-cyber-cyan tracking-widest uppercase">// INITIATE CONNECTION</div>
+      <h1 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+        联系与合作 (Contact)
+      </h1>
+      <p class="text-base text-cyber-muted max-w-2xl">
+        无论您有具体的 AI 智能体系统定制、企业级数字员工落地、全栈 Web 开发需求，还是单纯想交流技术，都非常欢迎随时建立连接。
+      </p>
+    </header>
+
+    <!-- Social Channels Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {socialLinks.map((item) => (
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group block p-5 rounded-xl bg-cyber-surface/80 border border-cyber-border hover:border-cyber-cyan/50 transition-all hover:shadow-[0_0_20px_-5px_rgba(0,240,255,0.2)]"
+        >
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">{item.icon}</span>
+              <div>
+                <h3 class="text-sm font-heading font-bold text-white group-hover:text-cyber-cyan transition-colors">
+                  {item.name}
+                </h3>
+                <p class="text-xs font-mono text-cyber-muted mt-0.5">{item.handle}</p>
+              </div>
+            </div>
+            <span class="text-cyber-muted group-hover:text-cyber-cyan group-hover:translate-x-1 transition-all text-xs font-mono">
+              &rarr;
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-3 pt-3 border-t border-cyber-border/50">
+            {item.desc}
+          </p>
+        </a>
+      ))}
+    </div>
+
+    <!-- Interactive Contact Form -->
+    <div class="rounded-xl cyber-glass border border-cyber-border p-6 sm:p-8 space-y-6">
+      <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-cyber-green inline-block"></span>
+        <h2 class="text-lg font-heading font-bold text-white">直接发送在线留言</h2>
+      </div>
+
+      <form id="contact-form" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <label for="name" class="block text-xs font-mono text-cyber-muted">您的称呼 / 团队名称 *</label>
+            <input
+              type="text"
+              id="name"
+              required
+              placeholder="例如：李先生 / Tech Corp"
+              class="w-full px-3.5 py-2.5 rounded-lg text-sm bg-cyber-surface2 border border-cyber-border text-white placeholder-cyber-muted/60 focus:outline-none focus:border-cyber-cyan transition-colors"
+            />
+          </div>
+          <div class="space-y-1.5">
+            <label for="email" class="block text-xs font-mono text-cyber-muted">电子邮箱地址 *</label>
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="your-email@example.com"
+              class="w-full px-3.5 py-2.5 rounded-lg text-sm bg-cyber-surface2 border border-cyber-border text-white placeholder-cyber-muted/60 focus:outline-none focus:border-cyber-cyan transition-colors"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="subject" class="block text-xs font-mono text-cyber-muted">主题 / 合作意向</label>
+          <input
+            type="text"
+            id="subject"
+            placeholder="例如：关于 Multi-Agent 智能体协作流项目咨询"
+            class="w-full px-3.5 py-2.5 rounded-lg text-sm bg-cyber-surface2 border border-cyber-border text-white placeholder-cyber-muted/60 focus:outline-none focus:border-cyber-cyan transition-colors"
+          />
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="message" class="block text-xs font-mono text-cyber-muted">留言详情描述 *</label>
+          <textarea
+            id="message"
+            rows="4"
+            required
+            placeholder="请简要描述您的项目需求、时间规划或想探讨的内容..."
+            class="w-full px-3.5 py-2.5 rounded-lg text-sm bg-cyber-surface2 border border-cyber-border text-white placeholder-cyber-muted/60 focus:outline-none focus:border-cyber-cyan transition-colors resize-none"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-xs font-mono font-semibold bg-cyber-cyan text-cyber-bg hover:bg-cyber-neonCyan transition-all shadow-[0_0_15px_rgba(0,240,255,0.3)] inline-flex items-center justify-center gap-2"
+        >
+          <span>🚀 发送留言 (SEND MESSAGE)</span>
+        </button>
+      </form>
+
+      <!-- Feedback Banner -->
+      <div id="form-feedback" class="hidden p-4 rounded-lg bg-cyber-green/10 border border-cyber-green/30 text-xs font-mono text-cyber-green">
+        ✔ 留言已成功提交！感谢您的联络，我将尽快查收并给您回复。
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const feedback = document.getElementById('form-feedback');
+
+  if (form && feedback) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = (document.getElementById('name') as HTMLInputElement).value;
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const subject = (document.getElementById('subject') as HTMLInputElement).value;
+      const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+
+      const mailtoUrl = `mailto:xiehuaian77@gmail.com?subject=${encodeURIComponent(subject || '来自网站 xiehuaian.de5.net 的联络留言')}&body=${encodeURIComponent(`姓名: ${name}\n邮箱: ${email}\n\n${message}`)}`;
+      
+      feedback.classList.remove('hidden');
+      form.reset();
+
+      setTimeout(() => {
+        window.location.href = mailtoUrl;
+      }, 800);
+    });
+  }
+</script>

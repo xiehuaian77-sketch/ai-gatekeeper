@@ -1,0 +1,80 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import { getReadingTime } from '../utils/readTime';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { data, slug, body } = post;
+const readTime = getReadingTime(body);
+---
+
+<article class="group relative rounded-xl bg-cyber-surface/75 border border-cyber-border hover:border-cyber-cyan/50 p-5 sm:p-6 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(0,240,255,0.15)] flex flex-col justify-between">
+  <div>
+    <!-- Meta Bar -->
+    <div class="flex flex-wrap items-center gap-3 text-xs mb-3">
+      <!-- Category Badge -->
+      <span class="px-2.5 py-0.5 rounded-full font-mono text-[11px] bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan">
+        {data.category}
+      </span>
+      
+      <FormattedDate date={data.pubDate} />
+      
+      <span class="text-cyber-muted/40">•</span>
+      
+      <!-- Read Time -->
+      <span class="inline-flex items-center gap-1 text-xs text-cyber-muted font-mono">
+        <svg class="w-3.5 h-3.5 text-cyber-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{readTime.text}</span>
+      </span>
+
+      {data.featured && (
+        <span class="ml-auto px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyber-purple/20 border border-cyber-purple/40 text-cyber-neonPurple">
+          FEATURED
+        </span>
+      )}
+    </div>
+
+    <!-- Title -->
+    <h3 class="text-lg sm:text-xl font-heading font-bold text-white group-hover:text-cyber-cyan transition-colors">
+      <a href={`/blog/${slug}`} class="focus:outline-none">
+        {data.title}
+      </a>
+    </h3>
+
+    <!-- Description -->
+    <p class="mt-2 text-sm text-cyber-muted line-clamp-2 leading-relaxed">
+      {data.description}
+    </p>
+  </div>
+
+  <!-- Tags & Link -->
+  <div class="mt-5 pt-4 border-t border-cyber-border/50 flex items-center justify-between">
+    <div class="flex flex-wrap gap-1.5">
+      {data.tags.slice(0, 3).map((tag) => (
+        <a
+          href={`/blog/tag/${tag}`}
+          class="text-xs font-mono text-slate-400 hover:text-cyber-cyan transition-colors"
+        >
+          #{tag}
+        </a>
+      ))}
+      {data.tags.length > 3 && (
+        <span class="text-xs font-mono text-cyber-muted">+{data.tags.length - 3}</span>
+      )}
+    </div>
+
+    <a
+      href={`/blog/${slug}`}
+      class="text-xs font-mono text-cyber-cyan hover:underline inline-flex items-center gap-1 group/link"
+    >
+      <span>阅读全文</span>
+      <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
+    </a>
+  </div>
+</article>

@@ -1,0 +1,71 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full border-t border-cyber-border/80 bg-cyber-bg/90 mt-24 py-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      <!-- Column 1: Info -->
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded bg-cyber-surface2 border border-cyber-border flex items-center justify-center text-cyber-cyan">
+            <span class="font-mono text-xs font-bold">&gt;_</span>
+          </div>
+          <span class="font-heading font-bold text-white tracking-wide">
+            Huaian<span class="text-cyber-cyan">.dev</span>
+          </span>
+        </div>
+        <p class="text-sm text-cyber-muted max-w-sm leading-relaxed">
+          谢怀安的个人数字空间。专注于多智能体协作（Agentic Workflows）、全栈高并发系统构建与 AI 创新应用。
+        </p>
+        <div class="flex items-center gap-2 text-xs font-mono text-cyber-cyan">
+          <span class="inline-block w-2 h-2 rounded-full bg-cyber-green animate-pulse"></span>
+          <span>STATUS: ONLINE · xiehuaian.de5.net</span>
+        </div>
+      </div>
+
+      <!-- Column 2: Navigation -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-mono font-bold tracking-wider text-white uppercase">// 快速导航</h4>
+        <ul class="space-y-2 text-sm text-cyber-muted">
+          <li><a href="/" class="hover:text-cyber-cyan transition-colors">首页 (Home)</a></li>
+          <li><a href="/portfolio" class="hover:text-cyber-cyan transition-colors">作品集 (Portfolio)</a></li>
+          <li><a href="/blog" class="hover:text-cyber-cyan transition-colors">技术博客 (Blog)</a></li>
+          <li><a href="/about" class="hover:text-cyber-cyan transition-colors">关于我 (About)</a></li>
+          <li><a href="/contact" class="hover:text-cyber-cyan transition-colors">联系方式 (Contact)</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Feed & Meta -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-mono font-bold tracking-wider text-white uppercase">// 资源与订阅</h4>
+        <ul class="space-y-2 text-sm text-cyber-muted">
+          <li>
+            <a href="/rss.xml" class="hover:text-cyber-cyan transition-colors flex items-center gap-1.5">
+              <span>RSS 订阅源</span>
+            </a>
+          </li>
+          <li>
+            <a href="/sitemap-index.xml" class="hover:text-cyber-cyan transition-colors">Sitemap 站点地图</a>
+          </li>
+          <li>
+            <a href="https://github.com/xiehuaian77-sketch" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-cyan transition-colors">GitHub @xiehuaian77-sketch</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="pt-8 border-t border-cyber-border/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-cyber-muted">
+      <div>
+        © {currentYear} Xie Huaian (谢怀安). All rights reserved.
+      </div>
+      <div class="flex items-center gap-2">
+        <span>Powered by</span>
+        <span class="text-cyber-cyan">Astro 5</span>
+        <span>&</span>
+        <span class="text-cyber-purple">Tailwind CSS</span>
+      </div>
+    </div>
+  </div>
+</footer>

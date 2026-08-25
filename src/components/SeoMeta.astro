@@ -1,0 +1,52 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  pubDate?: Date;
+}
+
+const {
+  title,
+  description = '个人暗色科技风网站 - 全栈开发、AI 智能体探索与作品集展示。',
+  image = '/images/portfolio-placeholder.svg',
+  article = false,
+  pubDate,
+} = Astro.props;
+
+const siteTitle = title.includes('Dev.Identity') ? title : `${title} | Dev.Identity`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://example.com');
+const imageURL = new URL(image, Astro.site || 'https://example.com');
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href={canonicalURL} />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Primary Meta Tags -->
+<title>{siteTitle}</title>
+<meta name="title" content={siteTitle} />
+<meta name="description" content={description} />
+<meta name="theme-color" content="#090a0f" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={article ? 'article' : 'website'} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={siteTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL} />
+{pubDate && <meta property="article:published_time" content={pubDate.toISOString()} />}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={siteTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={imageURL} />
+
+<!-- RSS Feed Auto-discovery -->
+<link rel="alternate" type="application/rss+xml" title="Dev.Identity Blog RSS Feed" href="/rss.xml" />

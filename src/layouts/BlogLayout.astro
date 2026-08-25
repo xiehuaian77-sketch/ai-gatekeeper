@@ -1,0 +1,110 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { getReadingTime } from '../utils/readTime';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { post, headings } = Astro.props;
+const { data, body } = post;
+const readTime = getReadingTime(body);
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.heroImage}
+  article={true}
+  pubDate={data.pubDate}
+>
+  <article class="max-w-4xl mx-auto">
+    <!-- Back to Blog Link -->
+    <div class="mb-8">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-1.5 text-xs font-mono text-cyber-muted hover:text-cyber-cyan transition-colors"
+      >
+        <span>&larr;</span>
+        <span>返回文章列表 (Blog Index)</span>
+      </a>
+    </div>
+
+    <!-- Article Header -->
+    <header class="space-y-4 pb-8 border-b border-cyber-border/80">
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <span class="px-2.5 py-0.5 rounded-full font-mono text-xs bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan">
+          {data.category}
+        </span>
+        <FormattedDate date={data.pubDate} />
+        <span class="text-cyber-muted/40">•</span>
+        <span class="inline-flex items-center gap-1 text-xs text-cyber-muted font-mono">
+          <svg class="w-3.5 h-3.5 text-cyber-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{readTime.text} ({readTime.words} 字)</span>
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl font-heading font-bold text-white tracking-tight leading-tight">
+        {data.title}
+      </h1>
+
+      <p class="text-base sm:text-lg text-cyber-muted leading-relaxed">
+        {data.description}
+      </p>
+
+      <!-- Tags List -->
+      <div class="flex flex-wrap gap-2 pt-2">
+        {data.tags.map((tag) => (
+          <a
+            href={`/blog/tag/${tag}`}
+            class="px-2.5 py-1 rounded text-xs font-mono bg-cyber-surface2 border border-cyber-border text-slate-300 hover:text-cyber-cyan hover:border-cyber-cyan/40 transition-colors"
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
+    </header>
+
+    <!-- Main Content Area with TOC -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-8">
+      <!-- Article Body -->
+      <div class="lg:col-span-3 prose prose-invert max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-a:text-cyber-cyan prose-pre:bg-cyber-surface prose-pre:border prose-pre:border-cyber-border">
+        <slot />
+      </div>
+
+      <!-- Sticky TOC Sidebar (Desktop) -->
+      <aside class="hidden lg:block lg:col-span-1">
+        <div class="sticky top-24 space-y-6">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="mt-16 pt-8 border-t border-cyber-border/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-xs font-mono text-cyber-muted">
+        发布于 <FormattedDate date={data.pubDate} /> · 感谢阅读
+      </div>
+      <div class="flex items-center gap-3">
+        <a
+          href="/blog"
+          class="px-4 py-2 rounded-lg text-xs font-mono bg-cyber-surface2 border border-cyber-border text-slate-200 hover:border-cyber-cyan hover:text-cyber-cyan transition-colors"
+        >
+          &larr; 查看更多文章
+        </a>
+        <a
+          href="/contact"
+          class="px-4 py-2 rounded-lg text-xs font-mono bg-cyber-cyan text-cyber-bg font-semibold hover:bg-cyber-neonCyan transition-all shadow-[0_0_15px_rgba(0,240,255,0.3)]"
+        >
+          交流探讨 &rarr;
+        </a>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>

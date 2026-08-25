@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="pGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e111a"/>
+      <stop offset="100%" stop-color="#141926"/>
+    </linearGradient>
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#pGrad)"/>
+  <!-- Grid lines -->
+  <g stroke="#1f273d" stroke-width="1" stroke-opacity="0.6">
+    <line x1="0" y1="112" x2="800" y2="112"/>
+    <line x1="0" y1="225" x2="800" y2="225"/>
+    <line x1="0" y1="337" x2="800" y2="337"/>
+    <line x1="200" y1="0" x2="200" y2="450"/>
+    <line x1="400" y1="0" x2="400" y2="450"/>
+    <line x1="600" y1="0" x2="600" y2="450"/>
+  </g>
+  <!-- Cyber Window Frame -->
+  <rect x="80" y="60" width="640" height="330" rx="10" fill="#090a0f" stroke="url(#accentLine)" stroke-width="2"/>
+  <rect x="80" y="60" width="640" height="40" rx="10" fill="#141926"/>
+  <circle cx="110" cy="80" r="6" fill="#ef4444"/>
+  <circle cx="130" cy="80" r="6" fill="#eab308"/>
+  <circle cx="150" cy="80" r="6" fill="#10b981"/>
+  <!-- Center Graphic -->
+  <circle cx="400" cy="230" r="50" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="10 6"/>
+  <polygon points="400,200 425,245 375,245" fill="none" stroke="#a855f7" stroke-width="3"/>
+  <text x="400" y="320" fill="#94a3b8" font-family="monospace" font-size="16" text-anchor="middle" letter-spacing="2">// PROJECT PREVIEW //</text>
+</svg>
