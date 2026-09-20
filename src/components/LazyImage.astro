@@ -1,0 +1,19 @@
+---
+---
+
+<!-- LazyImage component -->
+{/**
+ * Props for LazyImage
+ * @type {{src: string, alt?: string, class?: string, width?: number, height?: number, dataHero?: boolean}}
+ */}
+}
+
+<img
+  src={Astro.props.src}
+  alt={Astro.props.alt ?? ''}
+  class={Astro.props.class ?? ''}
+  width={Astro.props.width}
+  height={Astro.props.height}
+  loading={Astro.props.dataHero ? undefined : "lazy"}
+  decoding="async"
+/>

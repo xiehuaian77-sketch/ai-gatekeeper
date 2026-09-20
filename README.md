@@ -41,4 +41,52 @@ npm run preview
 
 ---
 
+## 🛡️ AI Gatekeeper — Prompt Firewall for On-chain Funds (SOC Console)
+
+> *"AI decides. Policy constrains. Cryptography authorizes. Smart contracts enforce."*  
+> **10-Second Value Proposition for Judges:** LLMs must never directly hold or transfer private keys or funds. AI Gatekeeper sandwiches AI decisions between deterministic Policy Guards and cryptographic EIP-712 signatures, verified on-chain by non-custodial smart contracts (`GatekeeperVault.sol`) with strict nonce replay protection.
+
+> **TESTNET ONLY — NO REAL FUNDS**  
+> Network: Ethereum Sepolia (Chain ID: `11155111`)  
+> Web UI: `http://localhost:3000` (AI Security Operations Center)
+
+### 📊 SOC Console Architecture & Security Dashboard
+
+- **Security Overview Bar**: Real-time status cards for AI Gatekeeper (Dual-Guard Fail-Closed), Policy Engine (2KB Limit & Max Claim Caps), Smart Contract (`0xeD75...91F3`), and Vault Balance.
+- **Attack Console & Presets**: 6 production attack scenarios (Normal, System Injection, DAN Jailbreak, Social Engineering, Obfuscated Base64, and Exploit Bypass).
+- **Security Decision Panel**: Threat classification, risk level, Prompt SHA-256 copyable hash, and cryptographic tuple verification.
+- **EIP-712 Cryptographic Authorization**: Transparent tuple preview (Contract, ChainId, Recipient, Amount, Nonce, Deadline, Signature).
+- **Manual Broadcast Gateway**: Safety confirmation step protecting faucet funds; transactions are broadcast to Ethereum Sepolia only after explicit human confirmation.
+- **On-chain Replay Lab**: Real-time test reproducing duplicate nonce submissions, proving EVM-level `NonceAlreadyUsed` revert.
+- **SOC Event Log & Toasts**: Real-time audit trail capturing all evaluation, authorization, broadcast, and replay events.
+
+### 🔄 2-Minute Live Demo Walkthrough
+
+1. **Step 1 — Preflight Verification**:
+   ```bash
+   npm run demo:check
+   ```
+   Ensures RPC, contracts, signer address, vault balance, and zero leaked secrets.
+
+2. **Step 2 — Launch SOC Console**:
+   ```bash
+   npm start
+   ```
+   Open `http://localhost:3000` in your browser.
+
+3. **Step 3 — Run 7-Stage Full Security Demo**:
+   - Click **`RUN FULL SECURITY DEMO`** in the top header.
+   - **Stages 1-3**: Tests normal and adversarial injection attacks (Jailbreak, System Override, Social Engineering) ➔ AI blocks request ➔ Decision: `DENY` ➔ Zero signature, zero tx, zero ETH leaked.
+   - **Stage 4**: Tests simulated exploit bypass ➔ Decision: `ALLOW` ➔ EIP-712 typed signature generated for strictly `0.001 ETH`.
+   - **Stage 5**: Pauses at Manual Broadcast Gateway with full cryptographic parameters visible.
+   - **Stage 6**: Simulates replay attack against smart contract ➔ Reverts with `NonceAlreadyUsed` ➔ Zero secondary payout.
+   - **Stage 7**: Displays the Session Audit Summary Card confirming 100% defense posture.
+
+### ⛓️ Verified Sepolia Deployments
+- **Contract Address**: [`0xeD751070AbDF02b6Cce845E2228DCd6bbAbc91F3`](https://sepolia.etherscan.io/address/0xeD751070AbDF02b6Cce845E2228DCd6bbAbc91F3)
+- **Deployment Tx**: [`0x2a282f84ad587d6f735aef64f8566ef55fabc24bf30e0fab82832a521a4bb416`](https://sepolia.etherscan.io/tx/0x2a282f84ad587d6f735aef64f8566ef55fabc24bf30e0fab82832a521a4bb416)
+- **Verified Claim Tx**: [`0x86f21f42b26bf36876e34c6be2e0478ffbc411207f1f1578ece8d87527d6f18e`](https://sepolia.etherscan.io/tx/0x86f21f42b26bf36876e34c6be2e0478ffbc411207f1f1578ece8d87527d6f18e)
+
+---
+
 © 2026 [Xie Huaian (谢怀安)](https://github.com/xiehuaian77-sketch).
