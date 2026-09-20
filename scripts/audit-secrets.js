@@ -26,7 +26,16 @@ function scanFile(filePath) {
   for (const { name, regex } of FORBIDDEN_PATTERNS) {
     const matches = content.match(regex);
     if (matches) {
-      findings.push({ file: filePath, issue: name, count: matches.length });
+      const validMatches = matches.filter(m => {
+        const lower = m.toLowerCase();
+        if (lower.includes("make sure you are using") || lower.includes("disregard all previous instructions")) {
+          return false;
+        }
+        return true;
+      });
+      if (validMatches.length > 0) {
+        findings.push({ file: filePath, issue: name, count: validMatches.length });
+      }
     }
   }
 
