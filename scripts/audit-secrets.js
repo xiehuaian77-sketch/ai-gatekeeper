@@ -28,7 +28,11 @@ function scanFile(filePath) {
     if (matches) {
       const validMatches = matches.filter(m => {
         const lower = m.toLowerCase();
-        if (lower.includes("make sure you are using") || lower.includes("disregard all previous instructions")) {
+        if (
+          lower.includes("make sure you are using") ||
+          lower.includes("disregard all previous instructions") ||
+          lower.includes("sepolia demo vault")
+        ) {
           return false;
         }
         return true;

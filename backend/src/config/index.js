@@ -47,7 +47,7 @@ const config = {
 
   // LLM Configuration
   geminiApiKey: process.env.GEMINI_API_KEY || "",
-  llmModel: process.env.LLM_MODEL || "gemini-3.6-flash",
+  llmModel: process.env.LLM_MODEL || "gemini-3.5-flash-lite",
 
   // Deployment Info
   deploymentTxHash: deployedSepolia.deploymentTxHash || "",
