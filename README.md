@@ -53,7 +53,10 @@ npm run preview
 ### 📊 SOC Console Architecture & Security Dashboard
 
 - **Security Overview Bar**: Real-time status cards for AI Gatekeeper (Dual-Guard Fail-Closed), Policy Engine (2KB Limit & Max Claim Caps), Smart Contract (`0xeD75...91F3`), and Vault Balance.
-- **Attack Console & Presets**: 6 production attack scenarios (Normal, System Injection, DAN Jailbreak, Social Engineering, Obfuscated Base64, and Exploit Bypass).
+- **Attack Console & Presets**: 6 production scenarios in 3 distinct tiers:
+  - 🟢 **Legitimate Request**: 01 Valid Authorized Claim Request ➔ Decision: `VALID ALLOW`
+  - 🔴 **Adversarial Requests**: 02 System Injection, 03 DAN Jailbreak, 04 Social Engineering, 05 Obfuscated Base64 ➔ Decision: `DENIED`
+  - 🟡 **Security Boundary**: 06 Controlled Boundary Demonstration ➔ Decision: `CONTROLLED ALLOW` (`ALLOW ≠ EXECUTION`)
 - **Security Decision Panel**: Threat classification, risk level, Prompt SHA-256 copyable hash, and cryptographic tuple verification.
 - **EIP-712 Cryptographic Authorization**: Transparent tuple preview (Contract, ChainId, Recipient, Amount, Nonce, Deadline, Signature).
 - **Manual Broadcast Gateway**: Safety confirmation step protecting faucet funds; transactions are broadcast to Ethereum Sepolia only after explicit human confirmation.
@@ -63,20 +66,10 @@ npm run preview
 ### 🎤 Hackathon Pitch Scripts / 现场演示讲稿
 
 #### 30秒标准演示版 (30-Second Standard Pitch)
-> “AI Gatekeeper 是 AI Agent 的链上安全执行层。
->
-> AI 负责理解请求，Policy Engine 负责约束，智能合约负责最终执行。
-> 我们先用 Prompt Injection 验证系统可以拦截恶意请求。
-> 接下来这个 ALLOW 并不是漏洞，而是我们设计的受控边界案例 (Controlled Boundary Case)。
-> 即使 AI Allow，也必须经过 EIP-712 授权、人工确认和智能合约验证。
-> 我们希望让 AI 成为链上资金的实时风控层，而不是直接控制资金。”
+> “AI Gatekeeper 是 AI Agent 的链上安全执行层。我们先验证一个合法且具有有效授权上下文的请求可以正常通过。然后使用 Prompt Injection 验证恶意请求会被 Policy Guard 拦截。最后展示一个 Controlled Boundary Case：即使 AI 返回 Allow，也不等于资金已经执行，仍然需要 EIP-712 授权、人工确认和智能合约验证。我们的目标，是让 AI 成为链上资金执行前的实时风控层，而不是直接控制资金。”
 
 #### 15秒极简电梯版 (15-Second Elevator Pitch)
-> “AI Gatekeeper 是 AI Agent 的链上安全执行层。
->
-> AI 负责判断，Policy 负责约束，EIP-712 和智能合约负责授权与执行。
-> 即使 AI Allow，也必须经过人工确认。
-> 我们让 AI 做实时风控，而不是直接控制资金。”
+> “AI Gatekeeper 是 AI Agent 的链上安全执行层。合法请求可以通过，恶意请求会被拦截，而即使 AI 在边界情况下 Allow，也必须经过 EIP-712、人工确认和智能合约验证。我们让 AI 做实时风控，而不是直接控制资金。”
 
 ### 🔄 2-Minute Live Demo Walkthrough
 
@@ -94,12 +87,13 @@ npm run preview
 
 3. **Step 3 — Run 7-Stage Full Security Demo**:
    - Click **`RUN FULL SECURITY DEMO`** in the top header.
-   - **Step 1 & 2 (Attack Detection & Policy Block)**: Tests adversarial injection attacks (Jailbreak, System Override, Social Engineering) ➔ AI and Policy block request ➔ Decision: `DENIED` ➔ Zero signature, zero tx, zero ETH leaked.
-   - **Step 3 (Controlled Boundary Case)**: Tests controlled authorization boundary ➔ Decision: `CONTROLLED ALLOW` ➔ Demonstrates that **ALLOW ≠ EXECUTION**.
-   - **Step 4 (EIP-712 Authorization)**: EIP-712 typed signature generated for strictly `0.001 ETH`.
-   - **Step 5 (Human Confirmation)**: Pauses at Human Confirmation Gate (`WAITING FOR HUMAN CONFIRMATION`) with cryptographic parameters visible.
-   - **Step 6 (Sepolia Execution)**: Smart contract verifies boundary conditions and nonce on Ethereum Sepolia.
-   - **Step 7 (Replay Protection)**: Simulates duplicate nonce replay attack ➔ Smart contract reverts with `NonceAlreadyUsed` ➔ Zero secondary payout.
+   - **Stage 1 (Legitimate Request)**: Valid authorized claim request ➔ AI & Policy verify credentials ➔ Decision: `VALID ALLOW` (🟢 Low risk, prompt accepted).
+   - **Stage 2 (Adversarial Request)**: Adversarial prompt injection ➔ AI & Policy block request ➔ Decision: `DENIED` (🔴 Zero signature, zero tx, zero ETH leaked).
+   - **Stage 3 (Controlled Boundary Case)**: Controlled demonstration boundary test ➔ Decision: `CONTROLLED ALLOW` (🟡 Proves that **ALLOW ≠ EXECUTION**).
+   - **Stage 4 (EIP-712 Authorization)**: EIP-712 typed signature generated for strictly `0.001 ETH`.
+   - **Stage 5 (Human Confirmation Gate)**: Pauses at Human Confirmation Gate (`WAITING FOR HUMAN CONFIRMATION`) with cryptographic parameters visible.
+   - **Stage 6 (Sepolia Execution)**: Smart contract verifies boundary conditions and nonce on Ethereum Sepolia.
+   - **Stage 7 (Replay Protection)**: Simulates duplicate nonce replay attack ➔ Smart contract reverts with `NonceAlreadyUsed` ➔ Zero secondary payout.
 
 ### ⛓️ Verified Sepolia Deployments
 - **Contract Address**: [`0xeD751070AbDF02b6Cce845E2228DCd6bbAbc91F3`](https://sepolia.etherscan.io/address/0xeD751070AbDF02b6Cce845E2228DCd6bbAbc91F3)

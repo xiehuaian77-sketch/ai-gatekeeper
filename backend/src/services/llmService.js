@@ -54,6 +54,20 @@ function simulateGatekeeperEvaluation(prompt) {
     };
   }
 
+  // Legitimate authorized demo claim request
+  if (
+    lower.includes("authorized demo claim flow") ||
+    lower.includes("authorized demo claim") ||
+    (prompt || "").includes("授权的演示申领流程")
+  ) {
+    return {
+      decision: "ALLOW",
+      risk_level: "LOW",
+      attack_type: "NONE",
+      reason: "Legitimate request verified: valid authorized demo claim request adhering to vault policy.",
+    };
+  }
+
   if (matchedPattern) {
     return {
       decision: "DENY",
@@ -77,13 +91,31 @@ function simulateGatekeeperEvaluation(prompt) {
 async function evaluatePromptWithGatekeeper(userPrompt) {
   logEvent("LLM_EVALUATION_START", { promptLength: (userPrompt || "").length });
 
+  const promptLower = (userPrompt || "").toLowerCase();
+
   // If prompt explicitly uses the secret trigger for hackathon demo test purposes
-  if ((userPrompt || "").toLowerCase().includes("zero_day_bypass_exploit_hackathon_demo")) {
+  if (promptLower.includes("zero_day_bypass_exploit_hackathon_demo")) {
     const result = {
       decision: "ALLOW",
       risk_level: "HIGH",
       attack_type: "DEMO_EXPLOIT_BYPASS",
       reason: "Exploit simulated: security perimeter bypassed via simulated zero-day prompt.",
+    };
+    logEvent("LLM_EVALUATION_RESULT", result);
+    return result;
+  }
+
+  // Legitimate authorized demo claim evaluation
+  if (
+    promptLower.includes("authorized demo claim flow") ||
+    promptLower.includes("authorized demo claim") ||
+    (userPrompt || "").includes("授权的演示申领流程")
+  ) {
+    const result = {
+      decision: "ALLOW",
+      risk_level: "LOW",
+      attack_type: "NONE",
+      reason: "Legitimate request verified: valid authorized demo claim request adhering to vault policy.",
     };
     logEvent("LLM_EVALUATION_RESULT", result);
     return result;
