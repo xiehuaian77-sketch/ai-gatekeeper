@@ -60,6 +60,24 @@ npm run preview
 - **On-chain Replay Lab**: Real-time test reproducing duplicate nonce submissions, proving EVM-level `NonceAlreadyUsed` revert.
 - **SOC Event Log & Toasts**: Real-time audit trail capturing all evaluation, authorization, broadcast, and replay events.
 
+### 🎤 Hackathon Pitch Scripts / 现场演示讲稿
+
+#### 30秒标准演示版 (30-Second Standard Pitch)
+> “AI Gatekeeper 是 AI Agent 的链上安全执行层。
+>
+> AI 负责理解请求，Policy Engine 负责约束，智能合约负责最终执行。
+> 我们先用 Prompt Injection 验证系统可以拦截恶意请求。
+> 接下来这个 ALLOW 并不是漏洞，而是我们设计的受控边界案例 (Controlled Boundary Case)。
+> 即使 AI Allow，也必须经过 EIP-712 授权、人工确认和智能合约验证。
+> 我们希望让 AI 成为链上资金的实时风控层，而不是直接控制资金。”
+
+#### 15秒极简电梯版 (15-Second Elevator Pitch)
+> “AI Gatekeeper 是 AI Agent 的链上安全执行层。
+>
+> AI 负责判断，Policy 负责约束，EIP-712 和智能合约负责授权与执行。
+> 即使 AI Allow，也必须经过人工确认。
+> 我们让 AI 做实时风控，而不是直接控制资金。”
+
 ### 🔄 2-Minute Live Demo Walkthrough
 
 1. **Step 1 — Preflight Verification**:
@@ -76,11 +94,12 @@ npm run preview
 
 3. **Step 3 — Run 7-Stage Full Security Demo**:
    - Click **`RUN FULL SECURITY DEMO`** in the top header.
-   - **Stages 1-3**: Tests normal and adversarial injection attacks (Jailbreak, System Override, Social Engineering) ➔ AI blocks request ➔ Decision: `DENY` ➔ Zero signature, zero tx, zero ETH leaked.
-   - **Stage 4**: Tests simulated exploit bypass ➔ Decision: `ALLOW` ➔ EIP-712 typed signature generated for strictly `0.001 ETH`.
-   - **Stage 5**: Pauses at Manual Broadcast Gateway with full cryptographic parameters visible.
-   - **Stage 6**: Simulates replay attack against smart contract ➔ Reverts with `NonceAlreadyUsed` ➔ Zero secondary payout.
-   - **Stage 7**: Displays the Session Audit Summary Card confirming 100% defense posture.
+   - **Step 1 & 2 (Attack Detection & Policy Block)**: Tests adversarial injection attacks (Jailbreak, System Override, Social Engineering) ➔ AI and Policy block request ➔ Decision: `DENIED` ➔ Zero signature, zero tx, zero ETH leaked.
+   - **Step 3 (Controlled Boundary Case)**: Tests controlled authorization boundary ➔ Decision: `CONTROLLED ALLOW` ➔ Demonstrates that **ALLOW ≠ EXECUTION**.
+   - **Step 4 (EIP-712 Authorization)**: EIP-712 typed signature generated for strictly `0.001 ETH`.
+   - **Step 5 (Human Confirmation)**: Pauses at Human Confirmation Gate (`WAITING FOR HUMAN CONFIRMATION`) with cryptographic parameters visible.
+   - **Step 6 (Sepolia Execution)**: Smart contract verifies boundary conditions and nonce on Ethereum Sepolia.
+   - **Step 7 (Replay Protection)**: Simulates duplicate nonce replay attack ➔ Smart contract reverts with `NonceAlreadyUsed` ➔ Zero secondary payout.
 
 ### ⛓️ Verified Sepolia Deployments
 - **Contract Address**: [`0xeD751070AbDF02b6Cce845E2228DCd6bbAbc91F3`](https://sepolia.etherscan.io/address/0xeD751070AbDF02b6Cce845E2228DCd6bbAbc91F3)
