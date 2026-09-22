@@ -42,12 +42,15 @@ function simulateGatekeeperEvaluation(prompt) {
   const matchedPattern = injectionPatterns.find((pattern) => lower.includes(pattern));
 
   // If prompt explicitly uses a secret trigger for hackathon demo test purposes
-  if (lower.includes("zero_day_bypass_exploit_hackathon_demo")) {
+  if (
+    lower.includes("zero_day_bypass_exploit_hackathon_demo") ||
+    lower.includes("controlled_boundary_case_demo")
+  ) {
     return {
       decision: "ALLOW",
       risk_level: "HIGH",
-      attack_type: "DEMO_EXPLOIT_BYPASS",
-      reason: "Exploit simulated: security perimeter bypassed via simulated zero-day prompt.",
+      attack_type: "CONTROLLED_BOUNDARY_CASE",
+      reason: "Controlled boundary demonstration: security perimeter evaluated under controlled demo policy. ALLOW != EXECUTION.",
     };
   }
 
@@ -91,13 +94,16 @@ async function evaluatePromptWithGatekeeper(userPrompt) {
 
   const promptLower = (userPrompt || "").toLowerCase();
 
-  // Controlled boundary demonstration: explicit zero-day simulation trigger for hackathon demo
-  if (promptLower.includes("zero_day_bypass_exploit_hackathon_demo")) {
+  // Controlled boundary demonstration: explicit simulation trigger for hackathon demo
+  if (
+    promptLower.includes("zero_day_bypass_exploit_hackathon_demo") ||
+    promptLower.includes("controlled_boundary_case_demo")
+  ) {
     const result = {
       decision: "ALLOW",
       risk_level: "HIGH",
-      attack_type: "DEMO_EXPLOIT_BYPASS",
-      reason: "Exploit simulated: security perimeter bypassed via simulated zero-day prompt.",
+      attack_type: "CONTROLLED_BOUNDARY_CASE",
+      reason: "Controlled boundary demonstration: security perimeter evaluated under controlled demo policy. ALLOW != EXECUTION.",
     };
     logEvent("LLM_EVALUATION_RESULT", result);
     return result;
